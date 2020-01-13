@@ -8,12 +8,12 @@ namespace CarBooking.API.Model
         public int BookingId { get; set; }
 
         [Required]
-        public DateTime Date { get; set; }
+        public DateTime BookedDate { get; set; }
 
 
-        [Required]
         public int CarId { get; set; }
 
+        [Required]
         public Car Car { get; set; }
     }
 }
