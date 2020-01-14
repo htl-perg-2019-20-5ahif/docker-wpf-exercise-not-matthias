@@ -13,9 +13,6 @@ namespace CarBooking.API.Controllers
     [ApiController]
     public class CarsController : ControllerBase
     {
-        //List all available cars for a given day.
-
-
         private readonly CarBookingDataContext _context;
 
         public CarsController(CarBookingDataContext context)
