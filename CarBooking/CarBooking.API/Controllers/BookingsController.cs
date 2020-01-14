@@ -97,7 +97,7 @@ namespace CarBooking.API.Controllers
             _context.Bookings.Add(new Booking
             {
                 CarId = bookingRequest.CarId,
-                BookedDate = bookingRequest.BookedDate.Date
+                BookedDate = bookingRequest.BookingDate.Date
             });
 
 
