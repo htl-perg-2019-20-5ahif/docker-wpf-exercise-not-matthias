@@ -31,6 +31,12 @@ namespace CarBooking.API
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            // Source: https://stackoverflow.com/questions/41090881/migrating-at-runtime-with-entity-framework-core
+            //using (var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            //{
+            //    scope.ServiceProvider.GetService<CarBookingDataContext>().Database.Migrate();
+            //}
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
