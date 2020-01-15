@@ -2,20 +2,7 @@ version: '3.4'
 
 services:
   carbooking.api:
-    image: ${DOCKER_REGISTRY-}carbooking.api
+    image: ${DOCKER_REGISTRY-}carbookingapi
     build:
       context: .
       dockerfile: CarBooking.API/Dockerfile
-    ports:
-        - "5001:80"
-    depends_on:
-        - db
-  db:
-    image: "mcr.microsoft.com/mssql/server"
-    ports:
-        - '1433:1433'
-    volumes:
-        - './mysql_data:/var/opt/mssql/data'
-    environment:
-        SA_PASSWORD: "P@ssw0rd"
-        ACCEPT_EULA: Y

@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.29521.150
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarBooking", "CarBooking\CarBooking.csproj", "{DEB2007A-0175-4CB3-96B3-40B0DBA1F438}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarBooking.API", "CarBooking.API\CarBooking.API.csproj", "{421495BF-4F4E-4786-92D2-2596F1A830D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarBooking.API", "CarBooking.API\CarBooking.API.csproj", "{421495BF-4F4E-4786-92D2-2596F1A830D9}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{BEC62CAF-1332-4134-BB01-D39B1157ABEF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{421495BF-4F4E-4786-92D2-2596F1A830D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{421495BF-4F4E-4786-92D2-2596F1A830D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{421495BF-4F4E-4786-92D2-2596F1A830D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BEC62CAF-1332-4134-BB01-D39B1157ABEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEC62CAF-1332-4134-BB01-D39B1157ABEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEC62CAF-1332-4134-BB01-D39B1157ABEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEC62CAF-1332-4134-BB01-D39B1157ABEF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
