@@ -38,7 +38,7 @@ namespace CarBooking
         /// <returns></returns>
         private async Task<IEnumerable<Car>> FetchList(FetchType fetchType)
         {
-            var requestUri = "https://localhost:5001/api/cars/" + fetchType switch
+            var requestUri = "http://localhost:5000/api/cars/" + fetchType switch
             {
                 FetchType.All => "all",
                 FetchType.Available => "available",
