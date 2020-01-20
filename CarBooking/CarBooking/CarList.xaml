@@ -10,6 +10,11 @@
         <StackPanel Orientation="Vertical">
             <!-- Dropdown -->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10">
+                <DatePicker Width="150"
+                            Margin="0, 0, 20, 0" 
+                            SelectedDate="{Binding SelectedDate, Mode=TwoWay}" 
+                            SelectedDateChanged="DatePicker_SelectedDateChanged" />
+                    
                 <ComboBox IsReadOnly="True" Width="100" Height="20" SelectedIndex="{Binding Path=SelectedFetchType}" SelectionChanged="ComboBox_SelectionChanged">
                     <ComboBoxItem>All</ComboBoxItem>
                     <ComboBoxItem>Available</ComboBoxItem>

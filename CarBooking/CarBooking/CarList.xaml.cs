@@ -1,6 +1,8 @@
 ﻿using CarBooking.API.Model;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -18,11 +20,36 @@ namespace CarBooking
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
         public ObservableCollection<Car> Cars { get; set; } = new ObservableCollection<Car>();
         public Car SelectedCar { get; set; }
-        public int SelectedFetchType { get; set; }
+
+        private DateTime SelectedDateValue = DateTime.MinValue;
+        public DateTime SelectedDate
+        {
+            get => SelectedDateValue;
+            set
+            {
+                SelectedDateValue = value;
+                OnPropertyChanged(nameof(SelectedDate));
+            }
+        }
+
+        private int SelectedFetchTypeValue;
+        public int SelectedFetchType
+        {
+            get => SelectedFetchTypeValue;
+            set
+            {
+                SelectedFetchTypeValue = value;
+                OnPropertyChanged(nameof(SelectedFetchType));
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged(string propertyName) =>
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
         public MainWindow()
         {
@@ -36,15 +63,8 @@ namespace CarBooking
         /// </summary>
         /// <param name="fetchType"></param>
         /// <returns></returns>
-        private async Task<IEnumerable<Car>> FetchList(FetchType fetchType)
+        private async Task<IEnumerable<Car>> FetchList(string requestUri)
         {
-            var requestUri = "http://localhost:5000/api/cars/" + fetchType switch
-            {
-                FetchType.All => "all",
-                FetchType.Available => "available",
-                _ => "all"
-            };
-
             // Send request
             var client = HttpClientSingleton.GetClient();
             var response = await client.GetAsync(requestUri);
@@ -77,13 +97,24 @@ namespace CarBooking
         /// <param name="e"></param>
         private async void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Fetch the list
-            var cars = await FetchList(SelectedFetchType switch
+            SelectedDate = DateTime.MinValue;
+
+            var fetchType = SelectedFetchType switch
             {
                 0 => FetchType.All,
                 1 => FetchType.Available,
                 _ => FetchType.All,
-            });
+            };
+
+            var requestUri = "http://localhost:5000/api/cars/" + fetchType switch
+            {
+                FetchType.All => "all",
+                FetchType.Available => "available",
+                _ => "all"
+            };
+
+            // Fetch the list
+            var cars = await FetchList(requestUri);
 
             // Reload list
             ReloadList(cars);
@@ -108,6 +139,27 @@ namespace CarBooking
 
             // Update the list
             ComboBox_SelectionChanged(null, null);
+        }
+
+        /// <summary>
+        /// Filter by the date.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (SelectedDate == DateTime.MinValue)
+            {
+                return;
+            }
+
+            var requestUri = "http://localhost:5000/api/cars/available?date=" + SelectedDate.ToString("yyyy-MM-ddTHH:mm:ss.fff");
+
+            // Fetch the list
+            var cars = await FetchList(requestUri);
+
+            // Reload list
+            ReloadList(cars);
         }
     }
 }
