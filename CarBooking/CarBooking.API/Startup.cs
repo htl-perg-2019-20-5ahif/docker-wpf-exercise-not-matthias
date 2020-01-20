@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using System;
+using System.IO;
 
 namespace CarBooking.API
 {
@@ -41,6 +42,7 @@ namespace CarBooking.API
             using (var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
                 scope.ServiceProvider.GetService<CarBookingDataContext>().Database.Migrate();
+                scope.ServiceProvider.GetService<CarBookingDataContext>().Database.ExecuteSqlRaw(File.ReadAllText("Import.sql"));
             }
 
             app.UseRouting();
