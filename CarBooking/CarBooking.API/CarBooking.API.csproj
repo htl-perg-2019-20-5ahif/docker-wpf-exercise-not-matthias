@@ -21,5 +21,9 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Include="Import.sql"/>
+  </ItemGroup>
+
 
 </Project>

@@ -1,0 +1,8 @@
+{
+  "solution": {
+    "path": "CarBooking.sln",
+    "projects": [
+      "CarBooking\\CarBooking.csproj"
+    ]
+  }
+}

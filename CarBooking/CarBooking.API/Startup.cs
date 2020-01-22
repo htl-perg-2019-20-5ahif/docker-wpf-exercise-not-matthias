@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using System;
 using System.IO;
+using System.Reflection;
 
 namespace CarBooking.API
 {
@@ -41,8 +42,17 @@ namespace CarBooking.API
             //// Source: https://stackoverflow.com/questions/41090881/migrating-at-runtime-with-entity-framework-core
             using (var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
+                // FIXME: Database connection can sometimes not be established.
                 scope.ServiceProvider.GetService<CarBookingDataContext>().Database.Migrate();
-                scope.ServiceProvider.GetService<CarBookingDataContext>().Database.ExecuteSqlRaw(File.ReadAllText("Import.sql"));
+
+                // Load and execute the import script
+                var assembly = typeof(Startup).GetTypeInfo().Assembly;
+
+                Stream stream = assembly.GetManifestResourceStream("CarBooking.API.Import.sql");
+                StreamReader reader = new StreamReader(stream);
+                string importScript = reader.ReadToEnd();
+
+                scope.ServiceProvider.GetService<CarBookingDataContext>().Database.ExecuteSqlRaw(importScript);
             }
 
             app.UseRouting();

@@ -1,0 +1,9 @@
+{
+  "solution": {
+    "path": "CarBooking.sln",
+    "projects": [
+      "CarBooking.API\\CarBooking.API.csproj",
+      "docker-compose.dcproj"
+    ]
+  }
+}
