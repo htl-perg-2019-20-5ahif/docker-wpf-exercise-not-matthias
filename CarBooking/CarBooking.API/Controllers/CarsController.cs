@@ -37,7 +37,7 @@ namespace CarBooking.API.Controllers
                 .Include(car => car.Bookings)
                 .Where(car =>
                     !car.Bookings.Any(booking => booking.BookedDate > DateTime.Now) &&                                                      // Filter for available
-                    (car.Bookings.Count == 0 || car.Bookings.Any(booking => date == null ? booking.BookedDate.Date != date.Date : true))    // Filter for date
+                    !car.Bookings.Any(booking => date == null ? booking.BookedDate.Date == date.Date : false)                               // Filter for date
                 )
                 .ToListAsync();
         }
